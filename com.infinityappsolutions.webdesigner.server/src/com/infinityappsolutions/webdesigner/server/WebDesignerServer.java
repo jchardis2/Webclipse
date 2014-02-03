@@ -39,7 +39,6 @@ public class WebDesignerServer {
 			try {
 				// testcode
 				org.apache.jasper.servlet.JspServlet jspServlet = new JspServlet();
-				WebAppProvider webapp_provider = new WebAppProvider();DeploymentManager deployer = new DeploymentManager();
 				// Create Server
 				server = new Server(8080);
 
