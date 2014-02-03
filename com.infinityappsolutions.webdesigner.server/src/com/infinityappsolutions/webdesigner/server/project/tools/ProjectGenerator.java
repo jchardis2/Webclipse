@@ -43,7 +43,6 @@ public class ProjectGenerator {
 	private void createEclipseProject() throws CoreException {
 		IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
 		IProject project = root.getProject(projectDirectoryName);
-		
 		project.create(null);
 		project.open(null);
 		IProjectDescription description = project.getDescription();

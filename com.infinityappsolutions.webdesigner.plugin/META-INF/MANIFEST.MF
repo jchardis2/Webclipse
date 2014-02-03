@@ -7,7 +7,8 @@ Bundle-Activator: com.infinityappsolutions.webdesigner.plugin.Activator
 Bundle-Vendor: InfinityAppSolutions
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
- org.eclipse.e4.ui.workbench.addons.swt;bundle-version="1.0.1",
  com.infinityappsolutions.webdesigner.server;bundle-version="1.0.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
+Export-Package: com.infinityappsolutions.webdesigner.plugin,
+ com.infinityappsolutions.webdesigner.plugin.actions

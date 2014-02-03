@@ -1,8 +1,5 @@
 package com.infinityappsolutions.webdesigner.server;
 
-import org.apache.jasper.servlet.JspServlet;
-import org.eclipse.jetty.deploy.DeploymentManager;
-import org.eclipse.jetty.deploy.providers.WebAppProvider;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.DefaultHandler;
@@ -37,9 +34,6 @@ public class WebDesignerServer {
 	public Runnable ServerRunnable = new Runnable() {
 		public void run() {
 			try {
-				// testcode
-				org.apache.jasper.servlet.JspServlet jspServlet = new JspServlet();
-				WebAppProvider webapp_provider = new WebAppProvider();DeploymentManager deployer = new DeploymentManager();
 				// Create Server
 				server = new Server(8080);
 
@@ -77,7 +71,7 @@ public class WebDesignerServer {
 				System.out
 						.println("++++++++++++++++++++++++++++++++++++++++++++");
 				System.out.println("Server Started");
-				// System.out.println("Server state: " + server.getState());
+				System.out.println("Server state: " + server.getState());
 				System.out.println("Context path: " + context.getContextPath());
 				System.out.println("Resource Base : "
 						+ context.getResourceBase());
