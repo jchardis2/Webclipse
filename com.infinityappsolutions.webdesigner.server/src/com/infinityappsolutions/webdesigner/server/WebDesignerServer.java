@@ -1,13 +1,15 @@
 package com.infinityappsolutions.webdesigner.server;
 
-import org.apache.jasper.servlet.JspServlet;
 import org.eclipse.jetty.deploy.DeploymentManager;
+import org.eclipse.jetty.deploy.PropertiesConfigurationManager;
 import org.eclipse.jetty.deploy.providers.WebAppProvider;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.DefaultHandler;
 import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.server.handler.ResourceHandler;
+import org.eclipse.jetty.util.thread.QueuedThreadPool;
+import org.eclipse.jetty.util.thread.ScheduledExecutorScheduler;
 import org.eclipse.jetty.webapp.WebAppContext;
 
 public class WebDesignerServer {
@@ -37,8 +39,6 @@ public class WebDesignerServer {
 	public Runnable ServerRunnable = new Runnable() {
 		public void run() {
 			try {
-				// testcode
-				org.apache.jasper.servlet.JspServlet jspServlet = new JspServlet();
 				// Create Server
 				server = new Server(8080);
 
