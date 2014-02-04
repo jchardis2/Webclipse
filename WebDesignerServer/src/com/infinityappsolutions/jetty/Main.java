@@ -1,8 +1,5 @@
 package com.infinityappsolutions.jetty;
 
-import java.lang.management.ManagementFactory;
-
-import org.eclipse.jetty.jmx.MBeanContainer;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerList;
@@ -12,9 +9,9 @@ public class Main {
 
 	public static void main(String[] args) throws Exception {
 		Server server = new Server(8080);
-		MBeanContainer mbContainer = new MBeanContainer(
-				ManagementFactory.getPlatformMBeanServer());
-		server.addBean(mbContainer);
+		// MBeanContainer mbContainer = new MBeanContainer(
+		// ManagementFactory.getPlatformMBeanServer());
+		// server.addBean(mbContainer);
 
 		WebAppContext webapp = new WebAppContext();
 		webapp.setContextPath("/");

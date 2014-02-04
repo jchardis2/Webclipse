@@ -1,16 +1,18 @@
 package com.infinityappsolutions.webdesigner.server;
 
-import org.eclipse.jetty.deploy.DeploymentManager;
-import org.eclipse.jetty.deploy.PropertiesConfigurationManager;
-import org.eclipse.jetty.deploy.providers.WebAppProvider;
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+
+import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.handler.DefaultHandler;
 import org.eclipse.jetty.server.handler.HandlerList;
-import org.eclipse.jetty.server.handler.ResourceHandler;
-import org.eclipse.jetty.util.thread.QueuedThreadPool;
-import org.eclipse.jetty.util.thread.ScheduledExecutorScheduler;
 import org.eclipse.jetty.webapp.WebAppContext;
+import org.osgi.framework.Bundle;
 
 public class WebDesignerServer {
 	private static WebDesignerServer webDesignerServer;
@@ -38,61 +40,46 @@ public class WebDesignerServer {
 
 	public Runnable ServerRunnable = new Runnable() {
 		public void run() {
+			server = new Server(8080);
+			WebAppContext webapp = new WebAppContext();
+			webapp.setContextPath("/");
+			Bundle bundle = org.eclipse.core.runtime.Platform
+					.getBundle("com.infinityappsolutions.webdesigner.server");
+			System.setProperty(Main.PROPERTY_JETTY_HOME, bundle.getLocation());
+			System.setProperty(Main.PROPERTY_JETTY_BASE, bundle.getLocation());
+			System.out.println("+++++++++++++++++++++++++++++++++++++++");
+			String fileName = bundle.getLocation();
+			File file = null;
 			try {
-				// Create Server
-				server = new Server(8080);
-
-				// Get properties
-				String jetty_home = System.getProperty("jetty.home", null);
-				String jetty_base = System.getProperty("jetty.base", null);
-				String jetty_resource_base = System.getProperty(
-						Main.PROPERTY_JETTY_RESOURCE_BASE, null);
-
-				// Create contexts and resources
-				WebAppContext context = new WebAppContext();
-				context.setWelcomeFiles(new String[] { "index.html" });
-				context.setResourceBase(jetty_resource_base);
-				context.setParentLoaderPriority(true);
-				context.setContextPath("/WebDesigner");
-				context.setDefaultsDescriptor(jetty_home
-						+ "/etc/webdefault.xml");
-				System.out
-						.println("++++++++++++++++++++++++++++++++++++++++++++");
-				System.out.println("Context path: " + context.getContextPath());
-				System.out.println("Resource Base : "
-						+ context.getResourceBase());
-				System.out
-						.println("++++++++++++++++++++++++++++++++++++++++++++");
-				HandlerList handlers = new HandlerList();
-				ResourceHandler resource_handler = new ResourceHandler();
-				resource_handler.setDirectoriesListed(true);
-				resource_handler.setResourceBase(jetty_resource_base);
-				// handlers.setHandlers(new Handler[] { resource_handler, new
-				// DefaultHandler() });
-				handlers.setHandlers(new Handler[] { context, resource_handler,
-						new DefaultHandler() });
-				server.setHandler(handlers);
+				file = FileLocator.getBundleFile(bundle);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			System.out.println("FilePATH: " + file.getAbsolutePath());
+			System.out.println("jetty.home: " + file.getAbsolutePath());
+			System.setProperty("jetty.home", file.getAbsolutePath());
+			System.out.println("+++++++++++++++++++++++++++++++++++++++");
+			// URL fileURL = bundle.getEntry("WebContent");
+			webapp.setDefaultsDescriptor(file.getAbsolutePath()
+					+ "/jetty/etc/webdefault.xml");
+			webapp.setDescriptor(file.getAbsolutePath()
+					+ "/WebContent/WEB-INF/web.xml");
+			webapp.setWar(file.getAbsolutePath() + "/WebContent");
+			HandlerList handlerList = new HandlerList();
+			handlerList.addHandler(webapp);
+			server.setHandler(webapp);
+			try {
 				server.start();
-				System.out
-						.println("++++++++++++++++++++++++++++++++++++++++++++");
-				System.out.println("Server Started");
-				// System.out.println("Server state: " + server.getState());
-				System.out.println("Context path: " + context.getContextPath());
-				System.out.println("Resource Base : "
-						+ context.getResourceBase());
-				System.out
-						.println("++++++++++++++++++++++++++++++++++++++++++++");
 				server.join();
-				System.out
-						.println("++++++++++++++++++++++++++++++++++++++++++++");
-				System.out.println("Server Stopped");
-				System.out
-						.println("++++++++++++++++++++++++++++++++++++++++++++");
+				Handler handlers[] = server.getHandlers();
+				for (Handler handler : handlers) {
+					System.out.println("Handler name: " + handler);
+				}
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
 		}
 	};
 
