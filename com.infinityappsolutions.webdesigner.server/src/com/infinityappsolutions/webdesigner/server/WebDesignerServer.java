@@ -45,8 +45,6 @@ public class WebDesignerServer {
 			webapp.setContextPath("/");
 			Bundle bundle = org.eclipse.core.runtime.Platform
 					.getBundle("com.infinityappsolutions.webdesigner.server");
-			System.setProperty(Main.PROPERTY_JETTY_HOME, bundle.getLocation());
-			System.setProperty(Main.PROPERTY_JETTY_BASE, bundle.getLocation());
 			System.out.println("+++++++++++++++++++++++++++++++++++++++");
 			String fileName = bundle.getLocation();
 			File file = null;
@@ -56,16 +54,20 @@ public class WebDesignerServer {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			System.out.println("FilePATH: " + file.getAbsolutePath());
-			System.out.println("jetty.home: " + file.getAbsolutePath());
-			System.setProperty("jetty.home", file.getAbsolutePath());
-			System.out.println("+++++++++++++++++++++++++++++++++++++++");
-			// URL fileURL = bundle.getEntry("WebContent");
+
 			webapp.setDefaultsDescriptor(file.getAbsolutePath()
 					+ "/jetty/etc/webdefault.xml");
-			webapp.setDescriptor(file.getAbsolutePath()
-					+ "/WebContent/WEB-INF/web.xml");
+			// webapp.setDescriptor(file.getAbsolutePath()
+			// + "/WebContent/WEB-INF/web.xml");
 			webapp.setWar(file.getAbsolutePath() + "/WebContent");
+			System.out.println("FilePATH: " + file.getAbsolutePath());
+			System.out.println("jetty.home: " + file.getAbsolutePath());
+			System.out.println("War: " + webapp.getWar());
+
+			System.setProperty(Main.PROPERTY_JETTY_HOME, file.getAbsolutePath());
+			System.setProperty(Main.PROPERTY_JETTY_BASE, file.getAbsolutePath());
+			System.out.println("+++++++++++++++++++++++++++++++++++++++");
+
 			HandlerList handlerList = new HandlerList();
 			handlerList.addHandler(webapp);
 			server.setHandler(webapp);
