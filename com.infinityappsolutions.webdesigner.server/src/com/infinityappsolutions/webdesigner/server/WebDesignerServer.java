@@ -71,7 +71,7 @@ public class WebDesignerServer {
 			HandlerList handlerList = new HandlerList();
 			handlerList.addHandler(webapp);
 			server.setHandler(webapp);
-			try {
+			try { 
 				server.start();
 				server.join();
 				Handler handlers[] = server.getHandlers();
