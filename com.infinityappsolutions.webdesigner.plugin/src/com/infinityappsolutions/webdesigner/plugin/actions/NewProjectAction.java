@@ -1,5 +1,6 @@
 package com.infinityappsolutions.webdesigner.plugin.actions;
 
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -32,7 +33,12 @@ public class NewProjectAction implements IWorkbenchWindowActionDelegate {
 	 */
 	public void run(IAction action) {
 		ProjectGenerator generator = new ProjectGenerator("TestProject");
-		generator.createProject();
+		try {
+			generator.createProject();
+		} catch (CoreException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**

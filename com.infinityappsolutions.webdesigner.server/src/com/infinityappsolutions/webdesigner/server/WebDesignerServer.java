@@ -55,10 +55,10 @@ public class WebDesignerServer {
 				e1.printStackTrace();
 			}
 
-			webapp.setDefaultsDescriptor(file.getAbsolutePath()
-					+ "/jetty/etc/webdefault.xml");
-			// webapp.setDescriptor(file.getAbsolutePath()
-			// + "/WebContent/WEB-INF/web.xml");
+			// webapp.setDefaultsDescriptor(file.getAbsolutePath()
+			// + "/jetty/etc/webdefault.xml");
+			 webapp.setDescriptor(file.getAbsolutePath()
+			 + "/WebContent/WEB-INF/web.xml");
 			webapp.setWar(file.getAbsolutePath() + "/WebContent");
 			System.out.println("FilePATH: " + file.getAbsolutePath());
 			System.out.println("jetty.home: " + file.getAbsolutePath());
