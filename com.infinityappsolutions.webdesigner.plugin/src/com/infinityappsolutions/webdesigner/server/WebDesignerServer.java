@@ -1,13 +1,12 @@
 package com.infinityappsolutions.webdesigner.server;
 
 import java.io.File;
-import java.io.IOException;
 
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerList;
-import org.eclipse.jetty.server.handler.ResourceHandler;
+import org.eclipse.jetty.webapp.WebAppClassLoader;
 import org.eclipse.jetty.webapp.WebAppContext;
 import org.osgi.framework.Bundle;
 
@@ -53,6 +52,8 @@ public class WebDesignerServer {
 				String warPath = jettyHome + "/WebContent";
 				System.setProperty(Main.PROPERTY_JETTY_HOME, jettyHome);
 				System.setProperty(Main.PROPERTY_JETTY_BASE, jettyBase);
+				System.setProperty("org.apache.jasper.compiler.disablejsr199",
+						"true");
 
 				// Print debug statements
 				System.out.println("+++++++++++++++++++++++++++++++++++++++");
@@ -62,17 +63,29 @@ public class WebDesignerServer {
 				System.out.println("+++++++++++++++++++++++++++++++++++++++");
 
 				// config webappcontext
-				WebAppContext webapp = new WebAppContext();
-				webapp.setContextPath("/");
-				webapp.setDefaultsDescriptor(webdefaultPath);
-				webapp.setWar(warPath);
+				WebAppContext webAppContext = new WebAppContext();
+				webAppContext.setContextPath("/");
+				webAppContext.setDefaultsDescriptor(webdefaultPath);
+				webAppContext.setWar(warPath);
+				webAppContext.setClassLoader(new WebAppClassLoader(getClass()
+						.getClassLoader(), webAppContext));
 				HandlerList handlerList = new HandlerList();
-				handlerList.addHandler(webapp);
-				server.setHandler(webapp);
-
+				handlerList.addHandler(webAppContext);
+				server.setHandler(webAppContext);
+				Handler handlers[] = server.getHandlers();
+				System.out.println("+++++++++++++++++++++++++++++++++++++++");
+				for (Handler handler : handlers) {
+					System.out.println("Handler: " + handler);
+				}
+				System.out.println("+++++++++++++++++++++++++++++++++++++++");
 				server.start();
 				server.join();
-
+				handlers = server.getHandlers();
+				System.out.println("+++++++++++++++++++++++++++++++++++++++");
+				for (Handler handler : handlers) {
+					System.out.println("Handler: " + handler);
+				}
+				System.out.println("+++++++++++++++++++++++++++++++++++++++");
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

@@ -1,22 +1,30 @@
-<!DOCTYPE html>
+<!DOCTYPE html >
+<%@page import="org.eclipse.jetty.servlet.ServletContextHandler.TagLib"%>
+<%@page
+	import="com.infinityappsolutions.webdesigner.actions.TestCreateProjectAction"%>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Designer</title>
 <script type="text/javascript" src="/includes/jquery-2.0.3.min.js"></script>
 <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet"
+	href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
 
-<link rel="stylesheet" href="http://jqueryui.com//resources/demos/style.css">
+<link rel="stylesheet"
+	href="http://jqueryui.com//resources/demos/style.css">
 
 <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
 
 <!-- Optional theme -->
-<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
+<link rel="stylesheet"
+	href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
 
 <!-- Latest compiled and minified JavaScript -->
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<script
+	src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 
 <!-- MY CSS -->
 <link rel="stylesheet" type="text/css" href="/css/webdesigner.css">
@@ -113,15 +121,22 @@
 			// embedded expression later on.
 			System.out.println("Evaluating date now");
 			java.util.Date date = new java.util.Date();
+			//Test Creating a project
+			TestCreateProjectAction action = new TestCreateProjectAction();
+			action.createProject();
 		%>
 		Hello! The time is now
 		<%=date%>
 		<div class="row" style="min-height: 900px; background-color: gray;">
-			<div id="widgetDrawer" class="col-xs-1 col-sm-1 col-md-2 col-lg-2" style="overflow-x: scroll; overflow-y: hidden; min-height: 900px;">
+			<div id="widgetDrawer" class="col-xs-1 col-sm-1 col-md-2 col-lg-2"
+				style="overflow-x: scroll; overflow-y: hidden; min-height: 900px;">
 				<div id="accordion"></div>
 			</div>
-			<div class=".col-xs-11 col-sm-11 col-md-10 col-lg-10" style="min-height: 500px; background-color: black; padding: 5px;">
-				<div id="mainContent" class="droppable ui-widget-header wd-ui-component" style="min-height: 500px; background-color: white;">
+			<div class=".col-xs-11 col-sm-11 col-md-10 col-lg-10"
+				style="min-height: 500px; background-color: black; padding: 5px;">
+				<div id="mainContent"
+					class="droppable ui-widget-header wd-ui-component"
+					style="min-height: 500px; background-color: white;">
 					<p>Content goes here</p>
 
 				</div>

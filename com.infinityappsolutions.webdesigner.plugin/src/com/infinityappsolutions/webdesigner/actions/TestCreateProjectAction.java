@@ -11,7 +11,8 @@ public class TestCreateProjectAction {
 	}
 
 	public void createProject() {
-		ProjectGenerator generator = new ProjectGenerator("Test1");
+		System.out.println("Test WOrks");
+		ProjectGenerator generator = new ProjectGenerator("Test2");
 		try {
 			generator.createProject();
 		} catch (CoreException e) {
