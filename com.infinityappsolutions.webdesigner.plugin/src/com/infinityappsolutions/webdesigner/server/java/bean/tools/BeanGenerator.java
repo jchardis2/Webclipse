@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.infinityappsolutions.webdesigner.database.tools.ColumnTypeMap;
-import com.infinityappsolutions.webdesigner.database.tools.DAOBean.DatabaseColumn;
-import com.infinityappsolutions.webdesigner.database.tools.DAOBean.DatabaseTable;
+import com.infinityappsolutions.webdesigner.database.tools.DAOReader.DatabaseColumn;
+import com.infinityappsolutions.webdesigner.database.tools.DAOReader.DatabaseTable;
 import com.infinityappsolutions.webdesigner.tools.FileTools;
 
 public class BeanGenerator {

@@ -9,15 +9,15 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class DAOBean {
+public class DAOReader {
 	private ArrayList<String> tableNames;
 	private ArrayList<DatabaseTable> databaseTables;
 	private Connection connection = null;
 	private DatabaseMetaData dbMetaData;
 
-	public DAOBean() {
+	public DAOReader() {
 		tableNames = new ArrayList<String>();
-		databaseTables = new ArrayList<DAOBean.DatabaseTable>();
+		databaseTables = new ArrayList<DAOReader.DatabaseTable>();
 	}
 
 	/**

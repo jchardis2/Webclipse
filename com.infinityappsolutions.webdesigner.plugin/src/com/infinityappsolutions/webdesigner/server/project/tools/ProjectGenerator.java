@@ -9,7 +9,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.JavaCore;
 
-import com.infinityappsolutions.webdesigner.database.tools.DAOBean.DatabaseTable;
+import com.infinityappsolutions.webdesigner.database.tools.DAOReader.DatabaseTable;
 import com.infinityappsolutions.webdesigner.server.java.bean.tools.BeanGenerator;
 
 public class ProjectGenerator {

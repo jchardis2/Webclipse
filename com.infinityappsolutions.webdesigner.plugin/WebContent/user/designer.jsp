@@ -1,7 +1,12 @@
 <!DOCTYPE html >
-<%@page import="org.eclipse.jetty.servlet.ServletContextHandler.TagLib"%>
 <%@page
-	import="com.infinityappsolutions.webdesigner.eclipse.actions.CreateProjectAction"%>
+	import="com.infinityappsolutions.webdesigner.database.tools.DAOReader"%>
+<%@page
+	import="com.infinityappsolutions.webdesigner.tools.WebDesignerSessionAttributes"%>
+<%@page import="org.eclipse.core.resources.IProject"%>
+<%@page
+	import="com.infinityappsolutions.webdesigner.eclipse.actions.java.CreateJavaProjectAction"%>
+<%@page import="org.eclipse.jetty.servlet.ServletContextHandler.TagLib"%>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -122,8 +127,11 @@
 			System.out.println("Evaluating date now");
 			java.util.Date date = new java.util.Date();
 			//Test Creating a project
-			CreateProjectAction action = new CreateProjectAction();
-			action.createProject("myOrg", "myrepo", "MyFirstProject");
+			CreateJavaProjectAction action = new CreateJavaProjectAction();
+			IProject project = action.createProject("myOrg", "myrepo", "MyFirstProject");
+			session.setAttribute(WebDesignerSessionAttributes.ATTRIBUTE_CURRENT_PROJECT, project);
+			DAOReader daoReader = new DAOReader();
+			daoReader.setConnection();
 		%>
 		Hello! The time is now
 		<%=date%>

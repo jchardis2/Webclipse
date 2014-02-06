@@ -3,13 +3,13 @@
 //import java.sql.SQLException;
 //import java.util.ArrayList;
 //
-//import com.infinityappsolutions.webdesigner.database.tools.DAOBean;
-//import com.infinityappsolutions.webdesigner.database.tools.DAOBean.DatabaseTable;
+//import com.infinityappsolutions.webdesigner.database.tools.DAOReader;
+//import com.infinityappsolutions.webdesigner.database.tools.DAOReader.DatabaseTable;
 //import com.infinityappsolutions.webdesigner.project.tools.ProjectGenerator;
 //
 //public class Main {
 //	public static void main(String args[]) {
-//		DAOBean daoBean = new DAOBean();
+//		DAOReader daoBean = new DAOReader();
 //		daoBean.setConnection();
 //		try {
 //			ArrayList<DatabaseTable> dbTables = daoBean.getDatabaseTables();
