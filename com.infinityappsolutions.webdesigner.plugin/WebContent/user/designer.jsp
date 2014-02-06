@@ -128,10 +128,13 @@
 			java.util.Date date = new java.util.Date();
 			//Test Creating a project
 			CreateJavaProjectAction action = new CreateJavaProjectAction();
-			IProject project = action.createProject("myOrg", "myrepo", "MyFirstProject");
-			session.setAttribute(WebDesignerSessionAttributes.ATTRIBUTE_CURRENT_PROJECT, project);
 			DAOReader daoReader = new DAOReader();
 			daoReader.setConnection();
+			IProject project = action.createProject("myOrg", "myrepo",
+					"MyFirstProject", daoReader.getDatabaseTables());
+			session.setAttribute(
+					WebDesignerSessionAttributes.ATTRIBUTE_CURRENT_PROJECT,
+					project);
 		%>
 		Hello! The time is now
 		<%=date%>
