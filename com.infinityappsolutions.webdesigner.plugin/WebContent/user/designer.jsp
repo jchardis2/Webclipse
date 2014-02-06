@@ -1,7 +1,7 @@
 <!DOCTYPE html >
 <%@page import="org.eclipse.jetty.servlet.ServletContextHandler.TagLib"%>
 <%@page
-	import="com.infinityappsolutions.webdesigner.actions.CreateProjectAction"%>
+	import="com.infinityappsolutions.webdesigner.eclipse.actions.CreateProjectAction"%>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -123,7 +123,7 @@
 			java.util.Date date = new java.util.Date();
 			//Test Creating a project
 			CreateProjectAction action = new CreateProjectAction();
-			action.createProject();
+			action.createProject("myOrg", "myrepo", "MyFirstProject");
 		%>
 		Hello! The time is now
 		<%=date%>

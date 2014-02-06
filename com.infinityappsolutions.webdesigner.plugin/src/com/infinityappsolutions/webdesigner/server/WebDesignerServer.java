@@ -59,7 +59,8 @@ public class WebDesignerServer {
 				System.setProperty(Main.PROPERTY_JETTY_BASE, jettyBase);
 				System.setProperty("org.apache.jasper.compiler.disablejsr199",
 						"true");
-
+				System.setProperty(Main.PROPERTY_PROJECTS_HOME,
+						"/home/jchardis/WebDesignerProjects");
 				// Print debug statements
 				System.out.println("+++++++++++++++++++++++++++++++++++++++");
 				System.out.println("Jetty Home: " + jettyHome);
