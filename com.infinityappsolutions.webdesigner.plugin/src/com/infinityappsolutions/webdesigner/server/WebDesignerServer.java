@@ -37,6 +37,11 @@ public class WebDesignerServer {
 	public Runnable ServerRunnable = new Runnable() {
 		public void run() {
 			try {
+				if (server != null
+						&& (server.getState() == server.RUNNING || server
+								.isStarted())) {
+					server.stop();
+				}
 				server = new Server(8080);
 
 				Bundle bundle = org.eclipse.core.runtime.Platform

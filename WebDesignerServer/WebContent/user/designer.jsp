@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<%@page import="com.infinityappsolutions.webdesigner.actions.TestCreateProjectAction"%>
+<%@page import="com.infinityappsolutions.webdesigner.actions.CreateProjectAction"%>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -120,7 +120,7 @@
 			System.out.println("Evaluating date now");
 			java.util.Date date = new java.util.Date();
 			//Test Creating a project
-			TestCreateProjectAction action = new TestCreateProjectAction();
+			CreateProjectAction action = new CreateProjectAction();
 			action.createProject();
 		%>
 		Hello! The time is now
