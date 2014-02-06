@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<%@page import="com.infinityappsolutions.webdesigner.actions.CreateProjectAction"%>
+<%@page import="com.infinityappsolutions.webdesigner.eclipse.actions.CreateProjectAction"%>
 <html>
 <head>
 <meta charset="UTF-8">
