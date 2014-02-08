@@ -1,53 +1,55 @@
 package com.infinityappsolutions.webdesigner.eclipse.actions.java;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.IClasspathEntry;
-import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragment;
-import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.launching.JavaRuntime;
 
-import com.infinityappsolutions.webdesigner.database.tools.DAOReader;
-import com.infinityappsolutions.webdesigner.database.tools.DAOReader.DatabaseTable;
 import com.infinityappsolutions.webdesigner.eclipse.actions.CreateProjectAction;
-import com.infinityappsolutions.webdesigner.server.java.bean.tools.BeanGenerator;
+import com.infinityappsolutions.webdesigner.tools.database.DAOReader.DatabaseTable;
 
 public class CreateJavaProjectAction extends CreateProjectAction {
 
-	public IProject createProject(String orgName, String repositoryName,
-			String projectName, ArrayList<DatabaseTable> databaseTables) {
+	public IProject createProject(String orgName, String repositoryName, String projectName, ArrayList<DatabaseTable> databaseTables) {
 
 		// description.setNatureIds(new String[] { JavaCore.NATURE_ID });
-		IProject generalProject = super.createProject(orgName, repositoryName,
-				projectName);
+		IProject generalProject = super.createProject(orgName, repositoryName, projectName);
 		IJavaProject javaProject = JavaCore.create(generalProject);
-		IClasspathEntry[] buildPath = {
-				JavaCore.newSourceEntry(generalProject.getFullPath().append(
-						"src")), JavaRuntime.getDefaultJREContainerEntry() };
+		IClasspathEntry[] buildPath = { JavaCore.newSourceEntry(generalProject.getFullPath().append("src")), JavaRuntime.getDefaultJREContainerEntry() };
 		try {
-			javaProject.setRawClasspath(buildPath, generalProject.getFullPath()
-					.append("bin"), null);
+			javaProject.setRawClasspath(buildPath, generalProject.getFullPath().append("bin"), null);
 			IFolder folder = generalProject.getFolder("src");
 			folder.create(true, true, null);
 
-			PackageGenerator generator = new PackageGenerator();
+			PackageGenerator packageGenerator = new PackageGenerator();
 
-			String packageName = "com." + orgName.toLowerCase() + "."
-					+ projectName.toLowerCase();
-			// create package fragment
-			IPackageFragment fragment = generator.addPackage(javaProject,
-					packageName, folder);
-			ClassGenerator classGenerator = new ClassGenerator(
-					databaseTables.get(0), fragment);
-			classGenerator.createClass(packageName);
+			String mainPackageName = "com." + orgName.toLowerCase() + "." + projectName.toLowerCase();
+			String beanPackageName = mainPackageName + ".beans";
+			String loaderPackageName = mainPackageName + ".loaders";
+			String mysqlDaoPackageName = mainPackageName + ".mysql.dao";
+			String actionsPackageName = mainPackageName + ".actions";
+			// create package fragments
+			IPackageFragment mainPackageFragment = packageGenerator.addPackage(javaProject, mainPackageName, folder);
+			IPackageFragment beanPackageFragment = packageGenerator.addPackage(javaProject, beanPackageName, folder);
+			IPackageFragment loaderPackageFragment = packageGenerator.addPackage(javaProject, loaderPackageName, folder);
+			IPackageFragment mysqlDaoPackageFragment = packageGenerator.addPackage(javaProject, mysqlDaoPackageName, folder);
+			IPackageFragment actionsPackageFragment = packageGenerator.addPackage(javaProject, mysqlDaoPackageName, folder);
+
+			// create beans
+			BeanGenerator beanGenerator = new BeanGenerator();
+			beanGenerator.generateAllBeans(javaProject, databaseTables, beanPackageFragment, beanPackageName);
+			
+			//create loaders
+			
+			//create daos
+			
 
 		} catch (JavaModelException e) {
 			// TODO Auto-generated catch block
@@ -59,19 +61,4 @@ public class CreateJavaProjectAction extends CreateProjectAction {
 		return generalProject;
 	}
 
-	public void createBeansFromDatabase(DAOReader daoReader) {
-		BeanGenerator beanGenerator = new BeanGenerator(
-				"infinityappsolutions.com", "testproject");
-		try {
-			String beangen = beanGenerator.generateBean(daoReader
-					.getDatabaseTables().get(0));
-			System.out.println("++++++++++++++++++++++++");
-			System.out.println(beangen);
-			System.out.println("++++++++++++++++++++++++");
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 }

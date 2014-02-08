@@ -11,9 +11,9 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.JavaCore;
 
-import com.infinityappsolutions.webdesigner.database.tools.DAOReader;
+import com.infinityappsolutions.webdesigner.eclipse.actions.java.BeanGenerator;
 import com.infinityappsolutions.webdesigner.server.Main;
-import com.infinityappsolutions.webdesigner.server.java.bean.tools.BeanGenerator;
+import com.infinityappsolutions.webdesigner.tools.database.DAOReader;
 
 public class CreateProjectAction {
 

@@ -9,8 +9,8 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.JavaCore;
 
-import com.infinityappsolutions.webdesigner.database.tools.DAOReader.DatabaseTable;
-import com.infinityappsolutions.webdesigner.server.java.bean.tools.BeanGenerator;
+import com.infinityappsolutions.webdesigner.eclipse.actions.java.BeanGenerator;
+import com.infinityappsolutions.webdesigner.tools.database.DAOReader.DatabaseTable;
 
 public class ProjectGenerator {
 
@@ -24,8 +24,7 @@ public class ProjectGenerator {
 		createEclipseProject();
 	}
 
-	public void createProject(ArrayList<DatabaseTable> databaseTables)
-			throws CoreException {
+	public void createProject(ArrayList<DatabaseTable> databaseTables) throws CoreException {
 		createEclipseProject();
 		// createBeans(databaseTables);
 	}
@@ -38,15 +37,6 @@ public class ProjectGenerator {
 		IProjectDescription description = project.getDescription();
 		description.setNatureIds(new String[] { JavaCore.NATURE_ID });
 		project.setDescription(description, null);
-	}
-
-	protected void createBeans(ArrayList<DatabaseTable> databaseTables) {
-		BeanGenerator beanGenerator = new BeanGenerator(
-				"infinityappsolutions.com", "testproject");
-		String beangen = beanGenerator.generateBean(databaseTables.get(0));
-		System.out.println("beangen==================");
-		System.out.println(beangen);
-		System.out.println("beangen==================");
 	}
 
 }

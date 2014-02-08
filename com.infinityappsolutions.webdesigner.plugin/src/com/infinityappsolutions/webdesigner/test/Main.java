@@ -3,8 +3,8 @@
 //import java.sql.SQLException;
 //import java.util.ArrayList;
 //
-//import com.infinityappsolutions.webdesigner.database.tools.DAOReader;
-//import com.infinityappsolutions.webdesigner.database.tools.DAOReader.DatabaseTable;
+//import com.infinityappsolutions.webdesigner.tools.database.DAOReader;
+//import com.infinityappsolutions.webdesigner.tools.database.DAOReader.DatabaseTable;
 //import com.infinityappsolutions.webdesigner.project.tools.ProjectGenerator;
 //
 //public class Main {

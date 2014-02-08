@@ -1,4 +1,4 @@
-package com.infinityappsolutions.webdesigner.database.tools;
+package com.infinityappsolutions.webdesigner.tools.database;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -28,10 +28,7 @@ public class DAOReader {
 			Class.forName("com.mysql.jdbc.Driver");
 
 			// System.out.println("MySQL JDBC Driver Registered!");
-
-			connection = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/webdesigner", "root",
-					"leet4u?2");
+			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/webdesigner", "root", "leet4u?2");
 		} catch (ClassNotFoundException e) {
 			System.out.println("Where is your MySQL JDBC Driver?");
 			e.printStackTrace();
@@ -51,8 +48,7 @@ public class DAOReader {
 	public ArrayList<DatabaseTable> getDatabaseTables() throws SQLException {
 		dbMetaData = (DatabaseMetaData) connection.getMetaData();
 		String tableTypes[] = { "TABLE", "VIEW", "LOCAL TEMPORARY" };
-		ResultSet allTables = dbMetaData
-				.getTables(null, null, null, tableTypes);
+		ResultSet allTables = dbMetaData.getTables(null, null, null, tableTypes);
 		while (allTables.next()) {
 			String table_name = allTables.getString("TABLE_NAME");
 			tableNames.add(table_name);
@@ -78,8 +74,7 @@ public class DAOReader {
 			// + rsmd.getColumnDisplaySize(col) + ")");
 			// if (col < columnCount)
 			// System.out.print(", ");
-			columns.add(new DatabaseColumn(rsmd.getColumnLabel(col), rsmd
-					.getColumnTypeName(col), null));
+			columns.add(new DatabaseColumn(rsmd.getColumnLabel(col), rsmd.getColumnTypeName(col), null));
 		}
 		// System.out.println();
 		return new DatabaseTable(tableName, columns);

@@ -1,6 +1,6 @@
 <!DOCTYPE html >
 <%@page
-	import="com.infinityappsolutions.webdesigner.database.tools.DAOReader"%>
+	import="com.infinityappsolutions.webdesigner.tools.database.DAOReader"%>
 <%@page
 	import="com.infinityappsolutions.webdesigner.tools.WebDesignerSessionAttributes"%>
 <%@page import="org.eclipse.core.resources.IProject"%>
