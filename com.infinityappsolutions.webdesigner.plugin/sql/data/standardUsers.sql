@@ -1,0 +1,1 @@
+INSERT INTO `webdesigner`.`users` (`id`, `username`, `email`, `password`, `firstname`, `lastname`) VALUES ('1', 'jchardis', 'jchardis2@gmail.com', '1dd7f691c5e0127801531d151c1633814430aab252c503ae4d668075741bda3a', 'Jimmy', 'Hardison');

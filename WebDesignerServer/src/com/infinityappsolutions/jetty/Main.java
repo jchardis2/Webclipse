@@ -1,5 +1,7 @@
 package com.infinityappsolutions.jetty;
 
+import org.eclipse.jetty.security.HashLoginService;
+import org.eclipse.jetty.security.JDBCLoginService;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerList;
@@ -19,6 +21,12 @@ public class Main {
 		HandlerList handlerList = new HandlerList();
 		handlerList.addHandler(webapp);
 		server.setHandler(webapp);
+
+		// Realm
+		HashLoginService hashLoginService = new HashLoginService("Realm", "/etc/realm.properties");
+		JDBCLoginService jdbcLoginService = new JDBCLoginService("JDBCRealm", "/etc/jdbcRealm.properties");
+		JAASLoginService
+		
 		server.start();
 		Handler handlers[] = server.getHandlers();
 		for (Handler handler : handlers) {

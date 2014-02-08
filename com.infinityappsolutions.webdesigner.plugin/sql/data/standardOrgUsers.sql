@@ -1,0 +1,1 @@
+INSERT INTO `webdesigner`.`orgUsers` (`orgid`, `userid`) VALUES ('1', '1');
