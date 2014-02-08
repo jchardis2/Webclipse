@@ -1,16 +1,18 @@
 package com.infinityappsolutions.jetty;
 
+import java.util.Collections;
+
 import org.eclipse.jetty.jaas.JAASLoginService;
-import org.eclipse.jetty.jaas.JAASUserPrincipal;
+import org.eclipse.jetty.security.ConstraintMapping;
+import org.eclipse.jetty.security.ConstraintSecurityHandler;
 import org.eclipse.jetty.security.HashLoginService;
 import org.eclipse.jetty.security.JDBCLoginService;
-import org.eclipse.jetty.security.LoginService;
+import org.eclipse.jetty.security.authentication.BasicAuthenticator;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerList;
+import org.eclipse.jetty.util.security.Constraint;
 import org.eclipse.jetty.webapp.WebAppContext;
-
-import com.infinityappsolutions.webdesigner.server.tools.role.LoginRoleCheckPolicy;
 
 public class Main {
 
@@ -20,19 +22,43 @@ public class Main {
 		// ManagementFactory.getPlatformMBeanServer());
 		// server.addBean(mbContainer);
 
+		// Realm
+		// HashLoginService hashLoginService = new HashLoginService("Realm",
+		// "etc/realm.properties");
+
+		JDBCLoginService jdbcLoginService = new JDBCLoginService("JDBCRealm", "etc/jdbcRealm.properties");
+
+		ConstraintSecurityHandler security = new ConstraintSecurityHandler();
+
+		Constraint constraint = new Constraint();
+		constraint.setName("auth");
+		constraint.setAuthenticate(true);
+		constraint.setRoles(new String[] { "user", "admin" });
+
+		ConstraintMapping mapping = new ConstraintMapping();
+		mapping.setPathSpec("/users/*");
+		mapping.setConstraint(constraint);
+
+		security.setConstraintMappings(Collections.singletonList(mapping));
+		security.setAuthenticator(new BasicAuthenticator());
+		security.setLoginService(jdbcLoginService);
+
 		WebAppContext webAppContext = new WebAppContext();
 		webAppContext.setContextPath("/");
 		webAppContext.setWar("./WebContent");
+
+		// ************
+		security.setHandler(webAppContext);
+
+		// add Handlers
 		HandlerList handlerList = new HandlerList();
 		handlerList.addHandler(webAppContext);
+		handlerList.addHandler(security);
 		server.setHandler(webAppContext);
 
-		// Realm
-		HashLoginService hashLoginService = new HashLoginService("Realm", "/etc/realm.properties");
-		JDBCLoginService jdbcLoginService = new JDBCLoginService("JDBCRealm", "/etc/jdbcRealm.properties");
-
-		JAASLoginService jaasLoginService = new JAASLoginService("JAAS Realm");
-		jaasLoginService.setLoginModuleName("LoginModule");
+		// JAASLoginService jaasLoginService = new
+		// JAASLoginService("JAAS Realm");
+		// jaasLoginService.setLoginModuleName("LoginModule");
 
 		server.addBean(jdbcLoginService);
 		// http://www.eclipse.org/jetty/documentation/current/embedded-examples.html#embedded-secured-hello-handler
