@@ -1,4 +1,6 @@
 DELETE FROM users;
+DELETE FROM roles;
+DELETE FROM user_role;
 DELETE FROM org;
 DELETE FROM orgUsers;
 DELETE FROM admin;

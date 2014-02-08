@@ -55,12 +55,22 @@ public class TestDataGenerator {
 
 	public void standardData() throws FileNotFoundException, IOException, SQLException {
 		standardUsers();
+		standardRoles();
+		standardUserRoles();
 		standardOrgs();
 		standardOrgUsers();
 	}
 
 	public void standardUsers() throws SQLException, FileNotFoundException, IOException {
 		new DBBuilder(factory).executeSQLFile(DIR + "/standardUsers.sql");
+	}
+
+	public void standardRoles() throws SQLException, FileNotFoundException, IOException {
+		new DBBuilder(factory).executeSQLFile(DIR + "/standardRoles.sql");
+	}
+
+	public void standardUserRoles() throws SQLException, FileNotFoundException, IOException {
+		new DBBuilder(factory).executeSQLFile(DIR + "/standardUserRoles.sql");
 	}
 
 	public void standardOrgs() throws SQLException, FileNotFoundException, IOException {
