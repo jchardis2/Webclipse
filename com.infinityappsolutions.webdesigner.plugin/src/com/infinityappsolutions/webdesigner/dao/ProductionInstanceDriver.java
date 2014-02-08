@@ -18,7 +18,7 @@ public class ProductionInstanceDriver {
 		Class.forName("com.mysql.jdbc.Driver");
 
 		// System.out.println("MySQL JDBC Driver Registered!");
-		Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/webdesigner", "root", "leet4u?2");
+		Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/webdesigner", "root", "mytestpassword");
 		return connection;
 	}
 

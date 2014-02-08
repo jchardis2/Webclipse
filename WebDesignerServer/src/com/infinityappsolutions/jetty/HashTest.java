@@ -1,0 +1,19 @@
+package com.infinityappsolutions.jetty;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+public class HashTest {
+
+	public static void main(String[] args) {
+		String password = "mytestpassword";
+		try {
+			String digest = new String(MessageDigest.getInstance("SHA-256").digest(password.toString().getBytes()));
+			System.out.println(digest);
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+}
