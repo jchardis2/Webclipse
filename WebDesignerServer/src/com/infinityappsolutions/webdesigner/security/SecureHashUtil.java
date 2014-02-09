@@ -1,16 +1,16 @@
-package com.infinityappsolutions.jetty;
+package com.infinityappsolutions.webdesigner.security;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class SecureHashUtil {
 
-	public static void main(String[] args) throws Exception {
-		String message = "mytestpassword";
-		SecureHashUtil hash = new SecureHashUtil();
-		String digest = hash.sha256Hash(message);
-		System.out.println(digest);
-	}
+	// public static void main(String[] args) throws Exception {
+	// String message = "mytestpassword";
+	// SecureHashUtil hash = new SecureHashUtil();
+	// String digest = hash.sha256Hash(message);
+	// System.out.println(digest);
+	// }
 
 	public String sha256Hash(String message) throws NoSuchAlgorithmException {
 		MessageDigest md = MessageDigest.getInstance("SHA-256");

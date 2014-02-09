@@ -1,4 +1,4 @@
-package com.infinityappsolutions.jetty;
+package com.infinityappsolutions.webdesigner.test;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

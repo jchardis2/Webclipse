@@ -1,4 +1,4 @@
-package com.infinityappsolutions.jetty;
+package com.infinityappsolutions.webdesigner;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,6 +16,8 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.util.security.Constraint;
 import org.eclipse.jetty.webapp.WebAppContext;
+
+import com.infinityappsolutions.webdesigner.login.WebDesignerLoginAuthenticator;
 
 public class Main {
 
@@ -38,7 +40,7 @@ public class Main {
 		jaasLoginService.setIdentityService(jdbcLoginService.getIdentityService());
 
 		Constraint constraintUsers = new Constraint();
-		constraintUsers.setName("auth");
+		constraintUsers.setName("user");
 		constraintUsers.setAuthenticate(true);
 		constraintUsers.setRoles(new String[] { "user", "admin" });
 
@@ -47,7 +49,7 @@ public class Main {
 		mappingUsers.setConstraint(constraintUsers);
 
 		Constraint constraintAdmins = new Constraint();
-		constraintAdmins.setName("auth");
+		constraintAdmins.setName("admin");
 		constraintAdmins.setAuthenticate(true);
 		constraintAdmins.setRoles(new String[] { "admin" });
 
@@ -55,9 +57,20 @@ public class Main {
 		mappingAdmins.setPathSpec("/admins/*");
 		mappingAdmins.setConstraint(constraintAdmins);
 
+		// users not logged in
+		Constraint constraintNoUser = new Constraint();
+		constraintNoUser.setName("nouser");
+		constraintNoUser.setAuthenticate(true);
+		constraintNoUser.setRoles(new String[] {});
+
+		ConstraintMapping mappingNoUser = new ConstraintMapping();
+		mappingNoUser.setPathSpec("/login.xhtml");
+		mappingNoUser.setConstraint(constraintAdmins);
+
 		ArrayList<ConstraintMapping> constraintMappingsList = new ArrayList<ConstraintMapping>();
 		constraintMappingsList.add(mappingUsers);
 		constraintMappingsList.add(mappingAdmins);
+		constraintMappingsList.add(mappingNoUser);
 
 		ConstraintSecurityHandler security = new ConstraintSecurityHandler();
 		security.setConstraintMappings(Collections.unmodifiableList(constraintMappingsList));
@@ -71,7 +84,7 @@ public class Main {
 		security.setAuthenticator(authenticator);
 		// security.setAuthenticator(new BasicAuthenticator());
 		security.setLoginService(jaasLoginService);
-		security.setSessionRenewedOnAuthentication(false);
+		security.setSessionRenewedOnAuthentication(true);
 
 		// setup webcontext
 		WebAppContext webAppContext = new WebAppContext();

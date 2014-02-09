@@ -1,4 +1,4 @@
-package com.infinityappsolutions.jetty;
+package com.infinityappsolutions.webdesigner.beans;
 
 import java.io.IOException;
 
@@ -66,17 +66,24 @@ public class LoginBean {
 		HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
 		try {
 			request.login(this.username, this.password);
-			try {
-				context.getExternalContext().redirect("/user/home.xhtml");
-				System.out.println("Sent Redirect");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			context.getExternalContext().redirect("/user/home.xhtml");
+			System.out.println("Sent Redirect");
+			// TODO Auto-generated catch block
 			return "home.xhtml?faces-redirect=true";
 		} catch (ServletException e) {
 			e.printStackTrace();
 			context.addMessage(null, new FacesMessage("Login failed."));
+			try {
+				context.getExternalContext().redirect("/login-error.xhtml");
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			return "error";
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+
 			return "error";
 		}
 	}
@@ -86,9 +93,14 @@ public class LoginBean {
 		HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
 		try {
 			request.logout();
+			context.getExternalContext().redirect("/login.xhtml");
 		} catch (ServletException e) {
 			e.printStackTrace();
 			context.addMessage(null, new FacesMessage("Logout failed."));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			context.addMessage(null, new FacesMessage("Failed to redirect."));
 		}
 	}
 }
