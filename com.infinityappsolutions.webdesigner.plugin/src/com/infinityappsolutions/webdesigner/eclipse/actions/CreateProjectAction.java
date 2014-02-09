@@ -1,7 +1,5 @@
 package com.infinityappsolutions.webdesigner.eclipse.actions;
 
-import java.sql.SQLException;
-
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IWorkspace;
@@ -11,9 +9,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.JavaCore;
 
-import com.infinityappsolutions.webdesigner.eclipse.actions.java.BeanGenerator;
 import com.infinityappsolutions.webdesigner.server.Main;
-import com.infinityappsolutions.webdesigner.tools.database.DAOReader;
 
 public class CreateProjectAction {
 

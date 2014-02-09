@@ -6,6 +6,9 @@
 	<version>0.0.1</version>
 	<build>
 		<sourceDirectory>src</sourceDirectory>
+		<finalName>JettyServer</finalName>
+		<directory>target</directory>
+		<outputDirectory>./WebContent/WEB-INF/classes</outputDirectory>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -22,6 +25,12 @@
 			<id>java.net.m2</id>
 			<name>java.net m2 repo</name>
 			<url>http://download.java.net/maven/2</url>
+		</repository>
+		<repository>
+			<id>prime-repo</id>
+			<name>PrimeFaces Maven Repository</name>
+			<url>http://repository.primefaces.org</url>
+			<layout>default</layout>
 		</repository>
 	</repositories>
 	<dependencies>
@@ -80,7 +89,10 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.29</version>
 		</dependency>
-
-
+		<dependency>
+			<groupId>org.primefaces</groupId>
+			<artifactId>primefaces</artifactId>
+			<version>4.0</version>
+		</dependency>
 	</dependencies>
 </project>

@@ -7,19 +7,18 @@
 </h:head>
 <h:body>
 	<h:form>
-
 		<h:panelGrid columns="2" cellpadding="5">
 			<h:outputLabel for="username" value="Username:" />
 			<p:inputText value="#{loginBean.username}" id="username"
 				required="true" label="username" />
 
 			<h:outputLabel for="password" value="Password:" />
-			<h:inputSecret value="#{loginBean.password}" id="password"
+			<p:password value="#{loginBean.password}" id="password"
 				required="true" label="password" />
+
 			<f:facet name="footer">
-				<p:commandButton id="loginButton" value="Login" ajax="false"
-					actionListener="/"
-					oncomplete="handleLoginRequest(xhr, status, args)" />
+				<p:commandButton id="loginButton" value="Login"
+					actionListener="#{loginBean.login}" />
 			</f:facet>
 		</h:panelGrid>
 	</h:form>

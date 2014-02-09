@@ -3,7 +3,7 @@ package com.infinityappsolutions.webdesigner.server.beans;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-@ManagedBean
+@ManagedBean(name = "loginBean")
 @ViewScoped
 public class LoginBean {
 	private Long id;
