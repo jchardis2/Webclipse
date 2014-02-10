@@ -23,6 +23,6 @@ public class TestDAOFactory extends DAOFactory implements IConnectionDriver {
 
 	@Override
 	public Connection getConnection() throws SQLException {
-		return DriverManager.getConnection("jdbc:mysql://localhost:3306/webdesigner", "root", "mytestpassword");
+		return DriverManager.getConnection("jdbc:mysql://localhost:3306/webdesigner", "webdesigner", "mytestpassword");
 	}
 }

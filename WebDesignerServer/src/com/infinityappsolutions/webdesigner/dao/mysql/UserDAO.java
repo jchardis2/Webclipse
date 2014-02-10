@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
+import com.infinityappsolutions.webdesigner.beans.LoggedInUserBean;
 import com.infinityappsolutions.webdesigner.beans.UserBean;
 import com.infinityappsolutions.webdesigner.dao.DAOFactory;
 import com.infinityappsolutions.webdesigner.dao.DBUtil;
@@ -87,10 +88,10 @@ public class UserDAO {
 	/**
 	 * Adds an empty user to the table, returns the new id
 	 * 
-	 * @return The MID of the patient as a long.
+	 * @return The id of the user as a long.
 	 * @throws DBException
 	 */
-	public long addEmptyPatient() throws DBException {
+	public long addEmptyUser() throws DBException {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		try {
@@ -102,6 +103,51 @@ public class UserDAO {
 			return a;
 		} catch (SQLException e) {
 
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
+	}
+
+	/**
+	 * Adds a user to the table, returns the new id
+	 * 
+	 * @return The id of the user as a long.
+	 * @throws DBException
+	 */
+	public long addNewUser(UserBean ub) throws DBException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			conn = factory.getConnection();
+			ps = conn.prepareStatement("INSERT INTO  `webdesigner`.`users` (`id` ,`username` ,`email` ,`password` ,`firstname` ,`lastname`)VALUES (?,  ?,  ?,  ?,  ?,  ?);");
+			if (ub.getId() == null) {
+				ub.setId(0L);
+			}
+			userLoader.loadParameters(ps, ub);
+			ps.executeUpdate();
+			long a = DBUtil.getLastInsert(conn);
+			ps.close();
+			addUserToRoleTable(ub);
+			return a;
+		} catch (SQLException e) {
+
+			throw new DBException(e);
+		} finally {
+			DBUtil.closeConnection(conn, ps);
+		}
+	}
+
+	private void addUserToRoleTable(UserBean ub) throws DBException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			conn = factory.getConnection();
+			ps = conn.prepareStatement("INSERT INTO  `webdesigner`.`user_role` (`user_username` ,`role_name`)VALUES (?,  'user');");
+			ps.setString(1, ub.getUsername());
+			ps.executeUpdate();
+			ps.close();
+		} catch (SQLException e) {
 			throw new DBException(e);
 		} finally {
 			DBUtil.closeConnection(conn, ps);
@@ -150,17 +196,17 @@ public class UserDAO {
 	 * @return A UserBean representing the user.
 	 * @throws DBException
 	 */
-	public UserBean getPatientByCredentials(String username, String password) throws DBException {
+	public UserBean getUserByCredentials(String username, String password, LoggedInUserBean loggedInUserBean) throws DBException {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		try {
 			conn = factory.getConnection();
-			ps = conn.prepareStatement("SELECT * FROM users WHERE username = ? AND password = ?");
+			ps = conn.prepareStatement("SELECT * FROM `users` WHERE `username` = ? AND `password` = ?");
 			ps.setString(1, username);
 			ps.setString(2, password);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
-				UserBean pat = userLoader.loadSingle(rs);
+				UserBean pat = userLoader.loadSingle(rs, loggedInUserBean);
 				rs.close();
 				ps.close();
 				return pat;

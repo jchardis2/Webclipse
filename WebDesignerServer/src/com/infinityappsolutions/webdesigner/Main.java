@@ -4,12 +4,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import org.eclipse.jetty.jaas.JAASLoginService;
+import org.eclipse.jetty.jaas.callback.DefaultCallbackHandler;
+import org.eclipse.jetty.jaas.callback.ObjectCallback;
 import org.eclipse.jetty.security.ConstraintMapping;
 import org.eclipse.jetty.security.ConstraintSecurityHandler;
-import org.eclipse.jetty.security.IdentityService;
 import org.eclipse.jetty.security.JDBCLoginService;
-import org.eclipse.jetty.security.LoginService;
-import org.eclipse.jetty.security.authentication.BasicAuthenticator;
 import org.eclipse.jetty.security.authentication.FormAuthenticator;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
@@ -38,6 +37,7 @@ public class Main {
 		JAASLoginService jaasLoginService = new JAASLoginService("JAASRealm");
 		jaasLoginService.setLoginModuleName("jdbc");
 		jaasLoginService.setIdentityService(jdbcLoginService.getIdentityService());
+		// jaasLoginService.setCallbackHandlerClass(DefaultCallbackHandler.class.getName());
 
 		Constraint constraintUsers = new Constraint();
 		constraintUsers.setName("user");
@@ -75,6 +75,8 @@ public class Main {
 		ConstraintSecurityHandler security = new ConstraintSecurityHandler();
 		security.setConstraintMappings(Collections.unmodifiableList(constraintMappingsList));
 		WebDesignerLoginAuthenticator authenticator = new WebDesignerLoginAuthenticator("/login.xhtml", "/login-error.xhtml", false);
+		// FormAuthenticator authenticator = new
+		// FormAuthenticator("/login.xhtml", "/login-error.xhtml", false);
 		authenticator.setAlwaysSaveUri(true);
 		// WebDesignerLoginAuthenticator authenticator = new
 		// WebDesignerLoginAuthenticator();

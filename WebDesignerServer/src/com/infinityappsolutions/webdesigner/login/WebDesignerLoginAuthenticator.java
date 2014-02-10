@@ -33,26 +33,16 @@ public class WebDesignerLoginAuthenticator extends FormAuthenticator {
 
 	@Override
 	public UserIdentity login(String username, Object password, ServletRequest request) {
-		// String url = ((HttpServletRequest) request).getRequestURI();
-		// System.out.println(url);
-		// Set<String> set = request.getParameterMap().keySet();
-		SecureHashUtil hashUtil = new SecureHashUtil();
-		try {
-			password = hashUtil.sha256Hash((String) password);
-		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		// UserIdentity user = _loginService.login(username, password);
-		// if (user != null) {
-		// renewSession((HttpServletRequest) request, (request instanceof
-		// Request ? ((Request) request).getResponse() : null));
-		// return user;
-		// }
-		// return null;
-		return super.login(username, password, request);
+		UserIdentity ui = super.login(username, password, request);
+		HttpSession session = ((HttpServletRequest) request).getSession(true);
+		if (ui != null)
+			session.setAttribute("username", ui.getUserPrincipal().getName());
+		return ui;
 	}
 
+	/**
+	 * Prevents users from visiting login pages after authenticating
+	 */
 	@Override
 	public Authentication validateRequest(ServletRequest req, ServletResponse res, boolean mandatory) throws ServerAuthException {
 		HttpServletRequest request = (HttpServletRequest) req;

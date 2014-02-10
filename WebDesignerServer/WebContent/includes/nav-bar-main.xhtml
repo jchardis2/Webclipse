@@ -19,7 +19,7 @@
 				id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
 					<li class="active"><a href="#">Home</a></li>
-					<li><a href="#">Projects</a></li>
+					<li><a href="/user/projects.xhtml">Projects</a></li>
 					<li><a href="/user/designer.xhtml">Designer JSf</a></li>
 					<li><a href="/user/designer.jsp">Designer JSP</a></li>
 					<li><a href="/user/plugins.xhtml">Plugins</a></li>
@@ -27,7 +27,7 @@
 				<h:form styleClass="navbar-form navbar-right">
 					<div class="form-group">
 						<h:commandButton id="loginButton" value="Logout"
-							styleClass="btn btn-default" actionListener="#{loginBean.logout}" />
+							styleClass="btn btn-default" actionListener="#{loginView.logout}" />
 					</div>
 				</h:form>
 				<form class="navbar-form navbar-right" role="search">

@@ -49,9 +49,9 @@ public class UserLoader implements BeanLoader<UserBean> {
 	}
 
 	public UserBean loadSingle(ResultSet rs) throws SQLException {
-		UserBean p = new UserBean();
-		loadCommon(rs, p);
-		return p;
+		UserBean ub = new UserBean();
+		loadCommon(rs, ub);
+		return ub;
 	}
 
 	public PreparedStatement loadParameters(PreparedStatement ps, UserBean ub) throws SQLException {
@@ -83,5 +83,11 @@ public class UserLoader implements BeanLoader<UserBean> {
 		// }
 
 		return ps;
+	}
+
+	@Override
+	public UserBean loadSingle(ResultSet rs, UserBean ub) throws SQLException {
+		loadCommon(rs, ub);
+		return ub;
 	}
 }

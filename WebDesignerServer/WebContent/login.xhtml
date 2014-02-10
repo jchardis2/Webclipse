@@ -27,20 +27,24 @@
 		<div class="jumbotron" style="margin-top: 20%">
 			<h1>​Web Designer</h1>
 			​
-			<h:form>
+			<h:form prependId="false">
 				<h:panelGrid columns="2" cellpadding="5">
 					<h:outputLabel for="wd_username" value="Username:" />
-					<p:inputText value="#{loginBean.username}" id="wd_username"
+					<p:inputText value="#{loginView.username}" id="wd_username"
 						required="true" label="username" />
 
 					<h:outputLabel for="wd_password" value="Password:" />
-					<p:password value="#{loginBean.password}" id="wd_password"
+					<p:password value="#{loginView.password}" id="wd_password"
 						required="true" label="password" />
 
 					<f:facet name="footer">
-						<p:commandButton id="loginButton" value="Login"
-							styleClass="btn btn-primary btn-lg"
-							actionListener="#{loginBean.login}" />
+						<h:commandButton id="loginButton" value="Login"
+							styleClass="btn btn-primary btn-md"
+							actionListener="#{loginView.login}" />
+						<br></br>
+						<br></br>
+						<h:commandButton id="signupButton" value="Create Account"
+							styleClass="btn btn-primary btn-md" action="createAccount.xhtml" />
 					</f:facet>
 				</h:panelGrid>
 			</h:form>

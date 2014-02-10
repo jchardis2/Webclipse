@@ -48,7 +48,13 @@ public class DAOFactory {
 	 * @throws SQLException
 	 */
 	public Connection getConnection() throws SQLException {
-		return driver.getConnection();
+		try {
+			return driver.getConnection();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }
