@@ -59,6 +59,7 @@ public class TestDataGenerator {
 		standardUserRoles();
 		standardOrgs();
 		standardOrgUsers();
+		standardOrgAdmins();
 	}
 
 	public void standardUsers() throws SQLException, FileNotFoundException, IOException {
@@ -79,6 +80,10 @@ public class TestDataGenerator {
 
 	public void standardOrgUsers() throws SQLException, FileNotFoundException, IOException {
 		new DBBuilder(factory).executeSQLFile(DIR + "/standardOrgUsers.sql");
+	}
+
+	public void standardOrgAdmins() throws SQLException, FileNotFoundException, IOException {
+		new DBBuilder(factory).executeSQLFile(DIR + "/standardOrgAdmins.sql");
 	}
 
 }

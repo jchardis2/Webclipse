@@ -1,1 +1,2 @@
-INSERT INTO `webdesigner`.`org_users` (`orgid`, `userid`) VALUES ('1', '1');
+INSERT INTO `org_users` (`orgid`, `userid`, `createProjects`, `deleteProjects`, `editProjects`) VALUES (1, 1, 1, 1, 1);
+INSERT INTO `org_users` (`orgid`, `userid`, `createProjects`, `deleteProjects`, `editProjects`) VALUES (2, 1, 1, 1, 1);

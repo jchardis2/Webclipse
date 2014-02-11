@@ -17,8 +17,20 @@ CREATE TABLE IF NOT EXISTS `org` (
 CREATE TABLE IF NOT EXISTS `org_users` (
   `orgid` bigint(20) NOT NULL,
   `userid` bigint(20) NOT NULL,
-  KEY `orgid` (`orgid`),
-  KEY `userid` (`userid`)
+  `createProjects` tinyint(1) NOT NULL DEFAULT '0',
+  `deleteProjects` tinyint(1) NOT NULL DEFAULT '0',
+  `editProjects` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`orgid`,`userid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS `org_admin` (
+  `orgid` bigint(20) NOT NULL,
+  `userid` bigint(20) NOT NULL,
+  `adduser` tinyint(1) NOT NULL DEFAULT '0',
+  `addadmin` tinyint(1) NOT NULL DEFAULT '0',
+  `editAllProjects` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`orgid`,`userid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `project` (
@@ -84,6 +96,10 @@ ALTER TABLE `org_users`
   ADD CONSTRAINT `org_users_ibfk_2` FOREIGN KEY (`userid`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `org_users_ibfk_1` FOREIGN KEY (`orgid`) REFERENCES `org` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+ALTER TABLE `org_admin`
+  ADD CONSTRAINT `org_admin_ibfk_2` FOREIGN KEY (`orgid`) REFERENCES `org_users` (`orgid`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `org_admin_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `org_users` (`userid`) ON DELETE CASCADE ON UPDATE CASCADE;
+  
 ALTER TABLE `project`
   ADD CONSTRAINT `project_ibfk_1` FOREIGN KEY (`orgid`) REFERENCES `org` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
@@ -97,3 +113,4 @@ ALTER TABLE `widgets`
 
 ALTER TABLE `widget_types`
   ADD CONSTRAINT `widget_types_ibfk_1` FOREIGN KEY (`orgid`) REFERENCES `org` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+

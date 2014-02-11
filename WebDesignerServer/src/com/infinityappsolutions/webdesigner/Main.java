@@ -13,9 +13,11 @@ import org.eclipse.jetty.security.authentication.FormAuthenticator;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerList;
+import org.eclipse.jetty.util.log.Log;
 import org.eclipse.jetty.util.security.Constraint;
 import org.eclipse.jetty.webapp.WebAppContext;
 
+import com.infinityappsolutions.webdesigner.log.Logger;
 import com.infinityappsolutions.webdesigner.login.WebDesignerLoginAuthenticator;
 
 public class Main {
@@ -86,7 +88,7 @@ public class Main {
 		security.setAuthenticator(authenticator);
 		// security.setAuthenticator(new BasicAuthenticator());
 		security.setLoginService(jaasLoginService);
-		security.setSessionRenewedOnAuthentication(true);
+		security.setSessionRenewedOnAuthentication(false);
 
 		// setup webcontext
 		WebAppContext webAppContext = new WebAppContext();
@@ -99,6 +101,11 @@ public class Main {
 		handlerList.addHandler(webAppContext);
 		// handlerList.addHandler(security);
 		server.setHandler(handlerList);
+
+		// Set logging to true
+		// Log.getRootLogger().setDebugEnabled(true);
+		Logger.getInstance().setDebug(true);
+		System.setProperty(Logger.PROPERTY_DEBUG, Boolean.TRUE.toString());
 
 		// http://www.eclipse.org/jetty/documentation/current/embedded-examples.html#embedded-secured-hello-handler
 		server.start();

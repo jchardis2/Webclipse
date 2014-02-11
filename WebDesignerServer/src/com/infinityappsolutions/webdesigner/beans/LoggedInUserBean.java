@@ -11,6 +11,8 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 @ManagedBean(name = "loggedInUserBean")
 public class LoggedInUserBean extends UserBean {
+	private static final long serialVersionUID = 67331987141558728L;
+
 	/**
 	 * This bean provides the instance of the currently logged in user
 	 */

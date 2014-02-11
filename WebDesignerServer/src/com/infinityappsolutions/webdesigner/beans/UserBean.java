@@ -1,12 +1,14 @@
 package com.infinityappsolutions.webdesigner.beans;
 
+import java.io.Serializable;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 @SessionScoped
 @ManagedBean(name = "userBean")
-public class UserBean {
-
+public class UserBean implements Serializable {
+	private static final long serialVersionUID = 7960007753183774817L;
 	protected Long id;
 	protected String username;
 	protected String email;
