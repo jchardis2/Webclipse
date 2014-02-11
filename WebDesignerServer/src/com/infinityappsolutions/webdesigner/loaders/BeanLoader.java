@@ -5,6 +5,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.infinityappsolutions.webdesigner.beans.UserBean;
+
 /**
  * This interface helps enforce the paradigm of what should be contained in a
  * loader.
@@ -63,5 +65,8 @@ public interface BeanLoader<T> {
 	 * @return A prepared statement with the appropriately loaded parameters.
 	 * @throws SQLException
 	 */
-	public PreparedStatement loadParameters(PreparedStatement ps, T bean) throws SQLException;
+	public PreparedStatement loadParameters(PreparedStatement ps, T bean)
+			throws SQLException;
+
+	public void loadCommon(ResultSet rs, T b) throws SQLException;
 }

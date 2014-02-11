@@ -35,4 +35,10 @@ public class OrgUserLoader implements BeanLoader<OrgUsersBean> {
 		return null;
 	}
 
+	@Override
+	public void loadCommon(ResultSet rs, OrgUsersBean b) throws SQLException {
+		// TODO Auto-generated method stub
+
+	}
+
 }
