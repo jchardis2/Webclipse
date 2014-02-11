@@ -30,7 +30,7 @@ public class UserLoader implements BeanLoader<UserBean> {
 		return list;
 	}
 
-	private void loadCommon(ResultSet rs, UserBean ub) throws SQLException {
+	public void loadCommon(ResultSet rs, UserBean ub) throws SQLException {
 		ub.setId(rs.getLong("id"));
 		ub.setUsername(rs.getString("username"));
 		ub.setEmail(rs.getString("email"));
@@ -54,7 +54,8 @@ public class UserLoader implements BeanLoader<UserBean> {
 		return ub;
 	}
 
-	public PreparedStatement loadParameters(PreparedStatement ps, UserBean ub) throws SQLException {
+	public PreparedStatement loadParameters(PreparedStatement ps, UserBean ub)
+			throws SQLException {
 		int i = 1;
 		ps.setLong(i++, ub.getId());
 		ps.setString(i++, ub.getUsername());
