@@ -66,7 +66,7 @@ public interface BeanLoader<T> {
 	 * @throws SQLException
 	 */
 	public PreparedStatement loadParameters(PreparedStatement ps, T bean)
-			throws SQLException; 
+			throws SQLException;
 
 	public void loadCommon(ResultSet rs, T b) throws SQLException;
 }
